@@ -25,8 +25,7 @@ class App:
                        The DataFrame has columns for petitioner name, respondent name, and judgment links.
             str: An empty string if the user input is empty.
         """
-        user_input = st.text_area('Enter Case ', '''''')
-        print(detect(user_input))
+        user_input = st.text_area('Enter Case: ', '''''')
         if user_input != '' and detect(user_input) == 'en':
             vector = self.textProcessing(user_input)
             locations = self.findJudjement(vector)
@@ -56,7 +55,6 @@ class App:
         doc = self.nlp(user_input)
         cleanedTokens = [token.lemma_.lower()
                          for token in doc if not token.is_punct and not token.is_stop]
-        print(cleanedTokens)
         if len(cleanedTokens) != 0:
             vector = self.nlp(" ".join(cleanedTokens)).vector
             return vector
